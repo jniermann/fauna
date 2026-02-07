@@ -1,9 +1,11 @@
 import { Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-logout-button',
-  imports: [],
+  imports: [MatButtonModule, MatIconModule],
   templateUrl: './logout-button.html',
   styleUrl: './logout-button.scss',
 })

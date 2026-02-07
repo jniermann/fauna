@@ -32,23 +32,26 @@
       <!-- Main Content -->
       @if (!(auth.isLoading$ | async) && !(auth.error$ | async)) {
       <div class="main-card-wrapper">
-        <!-- Authenticated State -->
-        @if (auth.isAuthenticated$ | async) {
-        <div class="logged-in-section">
-          <div class="logged-in-message">✅ Successfully authenticated!</div>
-          <h2 class="profile-section-title">Your Profile</h2>
-          <div class="profile-card">
-          </div>
-          <app-logout-button />
-        </div>
-        } @else {
+        @if (!(auth.isAuthenticated$ | async)) {
         <!-- Unauthenticated State -->
-          <app-login-button />
+        <app-login-button />
+        } @else {
+        <!-- Authenticated State -->
+        <app-logout-button />
         }
       </div>
       }
     </span>
   </mat-toolbar>
   <mat-drawer #drawer class="sidenav" mode="side"> </mat-drawer>
-  <div class="sidenav-content"></div>
+  <div class="sidenav-content">
+    <!-- Authenticated State -->
+    @if (auth.isAuthenticated$ | async) {
+    <div class="logged-in-section">
+      <div class="logged-in-message">✅ Successfully authenticated!</div>
+      <h2 class="profile-section-title">Your Profile</h2>
+      <div class="profile-card"></div>
+    </div>
+    }
+  </div>
 </mat-drawer-container>
