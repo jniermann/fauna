@@ -20,7 +20,38 @@
     >
       <mat-icon>format_color_fill</mat-icon>
     </button>
+    <span>
+      <!-- Error State -->
+      @if (auth.error$ | async; as error) {
+      <div class="error-state">
+        <div class="error-title">Oops!</div>
+        <div class="error-message">Something went wrong</div>
+        <div class="error-sub-message">{{ error.message }}</div>
+      </div>
+      }
+      <!-- Main Content -->
+      @if (!(auth.isLoading$ | async) && !(auth.error$ | async)) {
+      <div class="main-card-wrapper">
+        @if (!(auth.isAuthenticated$ | async)) {
+        <!-- Unauthenticated State -->
+        <app-login-button />
+        } @else {
+        <!-- Authenticated State -->
+        <app-logout-button />
+        }
+      </div>
+      }
+    </span>
   </mat-toolbar>
   <mat-drawer #drawer class="sidenav" mode="side"> </mat-drawer>
-  <div class="sidenav-content"></div>
+  <div class="sidenav-content">
+    <!-- Authenticated State -->
+    @if (auth.isAuthenticated$ | async) {
+    <div class="logged-in-section">
+      <div class="logged-in-message">✅ Successfully authenticated!</div>
+      <h2 class="profile-section-title">Your Profile</h2>
+      <div class="profile-card"></div>
+    </div>
+    }
+  </div>
 </mat-drawer-container>
